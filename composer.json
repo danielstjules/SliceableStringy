@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "danielstjules/Stringy": "dev-master"
+        "danielstjules/stringy": "dev-master"
     },
     "require-dev": {
         "danielstjules/pho": "*"
