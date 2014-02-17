@@ -1,0 +1,31 @@
+{
+    "name": "danielstjules/sliceable-stringy",
+    "description": "Python-like string slicing in PHP",
+    "keywords": [
+        "python", "slice", "slicing", "string", "manipulation", "utility",
+        "utf-8"
+    ],
+    "homepage": "https://github.com/danielstjules/SliceableStringy",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel St. Jules",
+            "email": "danielst.jules@gmail.com",
+            "homepage": "http://www.danielstjules.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "danielstjules/Stringy": "dev-master"
+    },
+    "require-dev": {
+        "danielstjules/pho": "*"
+    },
+    "support": {
+        "issues": "https://github.com/danielstjules/SliceableStringy/issues",
+        "source": "https://github.com/danielstjules/SliceableStringy"
+    },
+    "autoload": {
+        "psr-4": { "SliceableStringy\\": "src/" }
+    }
+}
