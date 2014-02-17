@@ -43,7 +43,7 @@ describe('SliceableStringy', function() {
         });
     });
 
-    context('given a string index with too many colons', function() {
+    context('given a string index with too many colons,', function() {
         it('throws an InvalidArgumentException', function() {
             $tooManyColons = function() {
                 $this->string['1:2:3:4'];
@@ -53,7 +53,7 @@ describe('SliceableStringy', function() {
         });
     });
 
-    context('given valid slice notation,', function() {
+    context('given an index with valid slice notation,', function() {
         it('throws an exception if step is 0', function() {
             $invalidStep = function() {
                 $this->string['1:2:0'];
@@ -102,8 +102,8 @@ describe('SliceableStringy', function() {
 
         it('accepts a negative step to iterate in reverse', function() {
             expect((string) $this->string['::-1'])->toBe('řàB ôòF');
-            expect((string) $this->string['-1::-2'])->toBe('řBôF');
-            expect((string) $this->string['-1:-6:-1'])->toBe('řàB ôò');
+            expect((string) $this->string['-3::-2'])->toBe('BôF');
+            expect((string) $this->string[':-6:-1'])->toBe('řàB ôò');
         });
     });
 });

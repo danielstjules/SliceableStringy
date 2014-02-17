@@ -52,10 +52,10 @@ class SliceableStringy extends Stringy implements \ArrayAccess
      * Returns a new SliceableStringy instance given start, stop and step
      * arguments for the desired slice. $start, which defaults to 0, indicates
      * the starting index of the slice. $stop, which defaults to the length of
-     * the string, indicates the exclusive boundary for what to include in the
-     * slice. And $step allows the user to only include every nth character.
-     * All args may be positive or negative, where a negative index counts
-     * back from the end of the string.
+     * the string, indicates the exclusive boundary of the range. And $step
+     * allows the user to only include every nth character. All args may be
+     * positive or negative, where a negative index counts back from the end of
+     * the string.
      *
      * @param  int|null $start Optional start index of the slice
      * @param  int|null $stop  Optional boundary for the slice
@@ -84,7 +84,7 @@ class SliceableStringy extends Stringy implements \ArrayAccess
         $start = max(0, $start);
         $stop = min($stop, $length);
 
-        // Return an empty string if the set of indexes would be empty
+        // Return an empty string if the set of indices would be empty
         if (($step > 0 && $start >= $stop) || ($step < 0 && $start <= $stop)) {
             return self::create('', $this->encoding);
         }
@@ -106,13 +106,13 @@ class SliceableStringy extends Stringy implements \ArrayAccess
     }
 
     /**
-     * Returns an array of indexes to be included in the slice.
+     * Returns an array of indices to be included in the slice.
      *
      * @param  int $start Start index of the slice
      * @param  int $stop  Boundary for the slice
      * @param  int $step  Rate at which to include characters
      *
-     * @return array An array of indexes in the string
+     * @return array An array of indices in the string
      */
     private function getIndices($start, $stop, $step)
     {
