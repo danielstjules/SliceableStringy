@@ -1,7 +1,7 @@
 SliceableStringy
 ================
 
-Python-like string slicing in PHP. It extends
+Python-like string slicing in PHP. The class extends
 [Stringy](https://github.com/danielstjules/Stringy), and implements the
 `ArrayAccess` interface.
 
@@ -78,7 +78,6 @@ $sliceable['-3::-2']; // 'BôF'
 ```php
 $sliceable['1:2:3:4']; // InvalidArgumentException
 $sliceable['::0'];     // InvalidArgumentException, step cannot equal 0
-
 ```
 
 ## TL;DR
