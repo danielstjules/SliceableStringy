@@ -1,6 +1,6 @@
 {
     "name": "danielstjules/sliceable-stringy",
-    "description": "Python-like string slicing in PHP",
+    "description": "Python-like string slices in PHP",
     "keywords": [
         "python", "slice", "slicing", "string", "manipulation", "utility",
         "utf-8"

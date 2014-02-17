@@ -1,7 +1,7 @@
 SliceableStringy
 ================
 
-Python-like string slicing in PHP. The class extends
+Python-like string slices in PHP. The class extends
 [Stringy](https://github.com/danielstjules/Stringy), and implements the
 `ArrayAccess` interface.
 
@@ -46,13 +46,13 @@ use SliceableStringy\SliceableStringy as S;
 $sliceable = S::create('Fòô Bàř', 'UTF-8');
 ```
 
-#### Returning the character at a given offset
+#### Specific offset
 ```php
 $sliceable[1];    // 'ò'
 $sliceable['-2']; // 'à'
 ```
 
-#### Slicing with start and end
+#### Using start and stop
 ```php
 $sliceable[':'];   // 'Fòô Bàř'
 $sliceable['4:'];  // 'Bàř'

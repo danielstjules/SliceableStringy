@@ -7,11 +7,12 @@ use Stringy\Stringy;
 class SliceableStringy extends Stringy implements \ArrayAccess
 {
     /**
-     * Implements python-like string slicing. Slices the string if the offset
+     * Implements python-like string slices. Slices the string if the offset
      * contains at least a single colon. Slice notation follow the format
      * "start:stop:step". If no colon is present, returns the character at the
      * given index. Offsets may be negative to count from the last character in
-     * the string. Throws an OutOfBoundsException if the index does not exist.
+     * the string. Throws an exception if the index does not exist, more than 3
+     * slice args are given, or the step is 0.
      *
      * @param  mixed $args The index from which to retrieve the char, or a
      *                     string with colons to return a slice
@@ -55,13 +56,14 @@ class SliceableStringy extends Stringy implements \ArrayAccess
      * the string, indicates the exclusive boundary of the range. And $step
      * allows the user to only include every nth character. All args may be
      * positive or negative, where a negative index counts back from the end of
-     * the string.
+     * the string. Throws an exception if step is equal to 0.
      *
      * @param  int|null $start Optional start index of the slice
      * @param  int|null $stop  Optional boundary for the slice
      * @param  int|null $step  Optional rate at which to include characters
      *
-     * @return SliceableStringy A new instance containing the slice
+     * @return SliceableStringy          A new instance containing the slice
+     * @throws \InvalidArgumentException If step is equal to 0
      */
     private function getSlice($start, $stop, $step)
     {
