@@ -68,23 +68,23 @@ class SliceableStringy extends Stringy implements \ArrayAccess
     private function getSlice($start, $stop, $step)
     {
         $length = $this->length();
-        $step = (isset($step)) ? $step  : 1;
+        $step = (isset($step)) ? $step : 1;
 
         if ($step === 0) {
             throw new \InvalidArgumentException('Slice step cannot be 0');
-        } elseif ($step > 0) {
-            $start = (isset($start)) ? $start : 0;
-            $stop = (isset($stop)) ? $stop : $length;
-        } else {
-            $start = (isset($start)) ? $start : $length;
-            $stop = (isset($stop)) ? $stop : 0;
         }
 
-        if ($start < 0) $start += $length;
-        if ($stop < 0) $stop += $length;
+        if (isset($start)) {
+            $start = $this->adjustBoundary($length, $start, $step);
+        } else {
+            $start = ($step > 0) ? 0 : $length - 1;
+        }
 
-        $start = max(0, $start);
-        $stop = min($stop, $length);
+        if (isset($stop)) {
+            $stop = $this->adjustBoundary($length, $stop, $step);
+        } else {
+            $stop = ($step > 0) ? $length : -1;
+        }
 
         // Return an empty string if the set of indices would be empty
         if (($step > 0 && $start >= $stop) || ($step < 0 && $start <= $stop)) {
@@ -94,17 +94,40 @@ class SliceableStringy extends Stringy implements \ArrayAccess
         // Return the substring if step is 1
         if ($step === 1) {
             return $this->substr($start, $stop - $start);
-        } else if ($step < 0) {
-            $stop -= 1;
         }
 
         // Otherwise iterate over the slice indices
         $str = '';
         foreach ($this->getIndices($start, $stop, $step) as $index) {
-            $str .= $this->at($index);
+            $str .= (isset($this[$index])) ? $this[$index] : '';
         }
 
         return self::create($str, $this->encoding);
+    }
+
+    /**
+     * Adjusts the start or stop boundary based on the provided length and step.
+     * The logic here uses CPython's PySlice_GetIndices as a reference. See:
+     * https://github.com/python-git/python/blob/master/Objects/sliceobject.c
+     *
+     * @param int $length   The length of the string
+     * @param int $boundary Start or stop value to adjust
+     * @param int $step     The step to be used with the slice
+     *
+     * @return int An adjusted boundary value
+     */
+    private function adjustBoundary($length, $boundary, $step)
+    {
+        if ($boundary < 0) {
+            $boundary += $length;
+            if ($boundary < 0) {
+                $boundary = ($step < 0) ? -1 : 0;
+            }
+        } else if ($boundary >= $length) {
+            $boundary = ($step < 0) ? $length - 1 : $length;
+        }
+
+        return $boundary;
     }
 
     /**

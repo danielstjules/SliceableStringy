@@ -80,6 +80,14 @@ $sliceable['1:2:3:4']; // InvalidArgumentException
 $sliceable['::0'];     // InvalidArgumentException, step cannot equal 0
 ```
 
+## Tests and Implementation Fidelity
+
+A number of specs in `spec/SliceableStringySpec.php` assert that the library
+mimics Python's native slice notation. On top of the handful of unit tests,
+`spec/fixtures/resultGenerator.py` has been used to generate test fixtures.
+Each of the slices in `expectedResults.csv` are checked against SlicebleStringy
+to ensure correct functionality.
+
 ## TL;DR
 
 Butchering two languages with a single library.

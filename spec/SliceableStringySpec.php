@@ -77,7 +77,7 @@ describe('SliceableStringy', function() {
             expect((string) $this->string['4:'])->toBe('Bàř');
         });
 
-        it('returns characters up to, but not including the end index', function() {
+        it('returns characters up to, but not including the stop index', function() {
             expect((string) $this->string['4:6'])->toBe('Bà');
         });
 
@@ -86,7 +86,7 @@ describe('SliceableStringy', function() {
             expect((string) $this->string['-3:6'])->toBe('Bà');
         });
 
-        it('accepts a negative end index', function() {
+        it('accepts a negative stop index', function() {
             expect((string) $this->string[':-1'])->toBe('Fòô Bà');
             expect((string) $this->string['4:-2'])->toBe('B');
         });
@@ -103,7 +103,35 @@ describe('SliceableStringy', function() {
         it('accepts a negative step to iterate in reverse', function() {
             expect((string) $this->string['::-1'])->toBe('řàB ôòF');
             expect((string) $this->string['-3::-2'])->toBe('BôF');
-            expect((string) $this->string[':-6:-1'])->toBe('řàB ôò');
+            expect((string) $this->string[':-6:-1'])->toBe('řàB ô');
+        });
+
+        it('uses -1 as the default start if given a negative step', function() {
+            expect((string) $this->string[':-2:-1'])->toBe('ř');
+        });
+
+        it('achieves identical output to python slices', function() {
+            // Get expected results from fixtures
+            $expectedResults = file(__DIR__ . '/fixtures/expectedResults.csv');
+
+            $results = [];
+            $str = S::create('spec');
+            $count = 0;
+
+            $args = array_merge([null], range(-8, 7));
+            $stepArgs = array_merge([null], range(-8, -1), range(1, 7));
+
+            // Build array of results
+            foreach ($args as $i) {
+                foreach ($args as $j) {
+                    foreach ($stepArgs as $k) {
+                        // Compare against python results
+                        $count++;
+                        $result = "$count,[$i:$j:$k]," . $str["$i:$j:$k"] . "\n";
+                        expect($result)->toEqual($expectedResults[$count - 1]);
+                    }
+                }
+            }
         });
     });
 });
