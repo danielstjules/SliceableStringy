@@ -113,7 +113,6 @@ describe('SliceableStringy', function() {
             // Get expected results from fixtures
             $expectedResults = file(__DIR__ . '/fixtures/expectedResults.csv');
 
-            $results = [];
             $str = S::create('spec');
             $count = 0;
 
