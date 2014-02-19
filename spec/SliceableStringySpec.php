@@ -126,8 +126,8 @@ describe('SliceableStringy', function() {
                     foreach ($stepArgs as $k) {
                         // Compare against python results
                         $count++;
-                        $result = "$count,[$i:$j:$k]," . $str["$i:$j:$k"] . "\n";
-                        expect($result)->toEqual($expectedResults[$count - 1]);
+                        $result = "[$i:$j:$k]," . $str["$i:$j:$k"] . "\n";
+                        expect($result)->toEqual($expectedResults[$count]);
                     }
                 }
             }

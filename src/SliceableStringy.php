@@ -14,8 +14,8 @@ class SliceableStringy extends Stringy implements \ArrayAccess
      * the string. Throws an exception if the index does not exist, more than 3
      * slice args are given, or the step is 0.
      *
-     * @param  mixed $args The index from which to retrieve the char, or a
-     *                     string with colons to return a slice
+     * @param mixed $args The index from which to retrieve the char, or a
+     *                    string with colons to return a slice
      *
      * @return SliceableStringy          The string corresponding to the index
      *                                   or slice
@@ -60,9 +60,9 @@ class SliceableStringy extends Stringy implements \ArrayAccess
      * in the result, with its sign determining the direction in which indices
      * are sampled. Throws an exception if step is equal to 0.
      *
-     * @param  int|null $start Optional start index of the slice
-     * @param  int|null $stop  Optional boundary for the slice
-     * @param  int|null $step  Optional rate at which to include characters
+     * @param int|null $start Optional start index of the slice
+     * @param int|null $stop  Optional boundary for the slice
+     * @param int|null $step  Optional rate at which to include characters
      *
      * @return SliceableStringy          A new instance containing the slice
      * @throws \InvalidArgumentException If step is equal to 0
@@ -135,9 +135,9 @@ class SliceableStringy extends Stringy implements \ArrayAccess
     /**
      * Returns an array of indices to be included in the slice.
      *
-     * @param  int $start Start index of the slice
-     * @param  int $stop  Boundary for the slice
-     * @param  int $step  Rate at which to include characters
+     * @param int $start Start index of the slice
+     * @param int $stop  Boundary for the slice
+     * @param int $step  Rate at which to include characters
      *
      * @return array An array of indices in the string
      */
