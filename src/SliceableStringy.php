@@ -51,12 +51,14 @@ class SliceableStringy extends Stringy implements \ArrayAccess
 
     /**
      * Returns a new SliceableStringy instance given start, stop and step
-     * arguments for the desired slice. $start, which defaults to 0, indicates
-     * the starting index of the slice. $stop, which defaults to the length of
-     * the string, indicates the exclusive boundary of the range. And $step
-     * allows the user to only include every nth character. All args may be
-     * positive or negative, where a negative index counts back from the end of
-     * the string. Throws an exception if step is equal to 0.
+     * arguments for the desired slice. Start, which indicates the starting
+     * index of the slice, defaults to the first character in the string if
+     * step is positive, and the last character if negative. Stop, which
+     * indicates the exclusive boundary of the range, defaults to the length
+     * of the string if step is positive, and before the first character
+     * if negative. Step allows the user to include only every nth character
+     * in the result, with its sign determining the direction in which indices
+     * are sampled. Throws an exception if step is equal to 0.
      *
      * @param  int|null $start Optional start index of the slice
      * @param  int|null $stop  Optional boundary for the slice

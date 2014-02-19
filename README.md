@@ -1,11 +1,17 @@
 SliceableStringy
 ================
 
-Python-like string slices in PHP. The class extends
+Python string slices in PHP. The class extends
 [Stringy](https://github.com/danielstjules/Stringy), and implements the
 `ArrayAccess` interface.
 
 [![Build Status](https://travis-ci.org/danielstjules/SliceableStringy.png)](https://travis-ci.org/danielstjules/SliceableStringy)
+
+* [Installation](#installation)
+* [Overview](#overview)
+* [Examples](#examples)
+* [Implementation Fidelity](#implementation-fidelity)
+* [TL;DR](#tldr)
 
 ## Installation
 
@@ -28,12 +34,13 @@ require 'vendor/autoload.php';
 ## Overview
 
 `SliceableStringy` returns a slice when passed a string offset containing
-one or more colons. Up to 3 arguments may be passed: `'start:stop:step'`. Start,
-which defaults to 0, indicates the starting index of the slice. Stop, which
-defaults to the length of the string, indicates the exclusive boundary of the
-range. And step allows the user to only include every nth character. All
-args may be positive or negative, where a negative index counts back from the
-end of the string.
+one or more colons. Up to 3 arguments may be passed: `'start:stop:step'`.
+Start, which indicates the starting index of the slice, defaults to the first
+character in the string if step is positive, and the last character if negative.
+Stop, which indicates the exclusive boundary of the range, defaults to the
+length of the string if step is positive, and before the first character if
+negative. And step allows the user to include only every nth character in the
+result, with its sign determining the direction in which indices are sampled.
 
 Just like `Stringy`, `SliceableStringy` is immutable and returns a new
 instance with each slice.
@@ -70,22 +77,23 @@ $sliceable['2:-6']; // ''
 #### Passing a step
 ```php
 $sliceable['::-1'];   // 'řàB ôòF'
-$sliceable['::2'];    // ''FôBř''
+$sliceable['::2'];    // 'FôBř'
 $sliceable['-3::-2']; // 'BôF'
 ```
 
 #### Possible exceptions
 ```php
-$sliceable['1:2:3:4']; // InvalidArgumentException
+$sliceable[20];        // OutOfBoundsException
+$sliceable['1:2:3:4']; // InvalidArgumentException, too many slice args
 $sliceable['::0'];     // InvalidArgumentException, step cannot equal 0
 ```
 
-## Tests and Implementation Fidelity
+## Implementation Fidelity
 
 A number of specs in `spec/SliceableStringySpec.php` assert that the library
 mimics Python's native slice notation. On top of the handful of unit tests,
 `spec/fixtures/resultGenerator.py` has been used to generate test fixtures.
-Each of the slices in `expectedResults.csv` are checked against SlicebleStringy
+Each of the slices in `expectedResults.csv` are checked against SliceableStringy
 to ensure correct functionality.
 
 ## TL;DR
