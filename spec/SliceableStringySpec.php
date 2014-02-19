@@ -62,15 +62,14 @@ describe('SliceableStringy', function() {
             expect($invalidStep)->toThrow('\InvalidArgumentException');
         });
 
-        it('defaults to a step of 1 if not set', function() {
-            expect((string) $this->string['::'])->toBe('Fòô Bàř');
-        });
-
-        it('returns a copy if start, stop and step are empty', function() {
+        it('does not modify the original object', function() {
             $copy = $this->string[':'];
 
-            expect((string) $copy)->toBe('Fòô Bàř');
             expect($copy)->notToEqual($this->string);
+        });
+
+        it('defaults to a step of 1 if not set', function() {
+            expect((string) $this->string['::'])->toBe('Fòô Bàř');
         });
 
         it('returns the remaining string if stop is not given', function() {
@@ -106,7 +105,7 @@ describe('SliceableStringy', function() {
             expect((string) $this->string[':-6:-1'])->toBe('řàB ô');
         });
 
-        it('uses -1 as the default start if given a negative step', function() {
+        it('start defaults to the last char if given a negative step', function() {
             expect((string) $this->string[':-2:-1'])->toBe('ř');
         });
 
