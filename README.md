@@ -96,6 +96,9 @@ mimics Python's native slice notation. On top of the handful of unit tests,
 Each of the slices in `expectedResults.csv` are checked against SliceableStringy
 to ensure correct functionality.
 
+To run the tests, install the dev dependencies with composer, then run
+`vendor/bin/pho`.
+
 ## TL;DR
 
 Butchering two languages with a single library.
